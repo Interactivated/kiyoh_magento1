@@ -50,7 +50,12 @@ class Kiyoh_Customerreview_Block_Customerreview extends Mage_Core_Block_Template
             curl_setopt($ch, CURLOPT_TIMEOUT, 10);
             $output = curl_exec($ch);
             curl_close($ch);
-            $doc = simplexml_load_string($output);
+            $doc = '';
+            try {
+                $doc = simplexml_load_string($output);
+            } catch (Exception $e){
+                $this->logErrors($e->getMessage() . ' Kiyoh response: '. $output);
+            }
             if ($doc) {
                 $data = Mage::helper('core/data')->jsonDecode(Mage::helper('core/data')->jsonEncode($doc));
                 if (isset($data['error'])) {
