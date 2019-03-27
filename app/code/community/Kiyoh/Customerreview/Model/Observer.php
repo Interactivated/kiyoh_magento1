@@ -77,7 +77,13 @@ class Kiyoh_Customerreview_Model_Observer
             $location_id = Mage::getStoreConfig('customconfig/review_group/location_id',$storeId);
             $custom_delay_1 = Mage::getStoreConfig('customconfig/review_group/custom_delay_1',$storeId);
             $language_1 = Mage::getStoreConfig('customconfig/review_group/language_1',$storeId);
-            $url = "https://klantenvertellen.nl/v1/invite/external?" .
+            $custom_servernew = Mage::getStoreConfig('customconfig/review_group/custom_servernew',$storeId);
+
+            $server = 'klantenvertellen.nl';
+            if($custom_servernew=='newkiyoh.com'){
+                $server = 'kiyoh.com';
+            }
+            $url = "https://{$server}/v1/invite/external?" .
                 "hash={$hash}" .
                 "&location_id={$location_id}" .
                 "&invite_email={$invite_email}" .

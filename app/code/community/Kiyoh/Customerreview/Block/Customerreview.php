@@ -50,7 +50,12 @@ class Kiyoh_Customerreview_Block_Customerreview extends Mage_Core_Block_Template
             curl_setopt($ch, CURLOPT_TIMEOUT, 10);
             $output = curl_exec($ch);
             curl_close($ch);
-            $doc = simplexml_load_string($output);
+            $doc = '';
+            try {
+                $doc = simplexml_load_string($output);
+            } catch (Exception $e){
+                $this->logErrors($e->getMessage() . ' Kiyoh response: '. $output);
+            }
             if ($doc) {
                 $data = Mage::helper('core/data')->jsonDecode(Mage::helper('core/data')->jsonEncode($doc));
                 if (isset($data['error'])) {
@@ -62,7 +67,14 @@ class Kiyoh_Customerreview_Block_Customerreview extends Mage_Core_Block_Template
         } else {
             $hash = Mage::getStoreConfig('customconfig/review_group/hash');
             $location_id = Mage::getStoreConfig('customconfig/review_group/location_id');
-            $url = "https://klantenvertellen.nl/v1/publication/review/external?locationId=" . $location_id;
+            $custom_servernew = Mage::getStoreConfig('customconfig/review_group/custom_servernew');
+
+            $server = 'klantenvertellen.nl';
+            if($custom_servernew=='newkiyoh.com'){
+                $server = 'kiyoh.com';
+            }
+
+            $url = "https://{$server}/v1/publication/review/external?locationId=" . $location_id;
             $ch = curl_init();
 
             // set url
