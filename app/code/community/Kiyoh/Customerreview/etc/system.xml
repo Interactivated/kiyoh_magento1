@@ -17,7 +17,7 @@
             <groups>
                 <review_group translate="label">
                     <label>Customers</label>
-                    <comment>Version 2.1.4</comment>
+                    <comment>Version 2.1.5</comment>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -220,14 +220,14 @@
                             <label>Enter delay</label>
                             <comment>Enter here the delay(number of days) after which you would like to send review invite email
                                 to your customer. This delay applies after customer event(Shipping/Purchase - to be selected at
-                                next option). Minimal is 1.
+                                next option). You may enter 0 to send review invite email immediately after customer event(Shipping/Purchase).
                             </comment>
                             <depends><network>klantenvertellen</network></depends>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>validate-digits validate-digits-range digits-range-1-365</validate>
+                            <validate>validate-digits validate-digits-range digits-range-0-365</validate>
                         </custom_delay_1>
 
                         <language_1 translate="label comment">
