@@ -46,8 +46,8 @@ class Kiyoh_Customerreview_Block_Customerreview extends Mage_Core_Block_Template
             curl_setopt($ch, CURLOPT_URL, $file);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-            curl_setopt($ch, CURLOPT_TIMEOUT_MS, 200);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 1);
             $output = curl_exec($ch);
             curl_close($ch);
             $doc = '';
@@ -84,8 +84,8 @@ class Kiyoh_Customerreview_Block_Customerreview extends Mage_Core_Block_Template
             ));
             //return the transfer as a string
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-            curl_setopt($ch, CURLOPT_TIMEOUT_MS, 200);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 1);
             // $output contains the output string
             $output = curl_exec($ch);
             $rating = json_decode($output, true);
