@@ -74,7 +74,7 @@ class Kiyoh_Customerreview_Block_Customerreview extends Mage_Core_Block_Template
                 $server = 'kiyoh.com';
             }
 
-            $url = "https://{$server}/v1/publication/review/external?locationId=" . $location_id;
+            $url = "https://{$server}/v1/publication/review/external/location/statistics?locationId=" . $location_id;
             $ch = curl_init();
 
             // set url
