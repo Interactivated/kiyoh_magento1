@@ -7,17 +7,21 @@ class Kiyoh_Customerreview_Block_Customerreview extends Mage_Core_Block_Template
     public function _prepareLayout()
     {
         $storeId = Mage::app()->getStore()->getId();
-        $network = Mage::getStoreConfig('customconfig/review_group/network',$storeId);
-        $key = 'kiyoh_customerreview_microdata-'.$storeId.'-'.$network;
+        $network = Mage::getStoreConfig('customconfig/review_group/network', $storeId);
+        $key = 'kiyoh_customerreview_microdata-' . $storeId . '-' . $network;
         $cache = Mage::app()->getCache();
-        $this->mcrdata = unserialize($cache->load($key));
-
+        $serializer = new \Zend_Serializer();
+        try {
+            $this->mcrdata = $serializer->unserialize($cache->load($key));
+        } catch (\Zend_Serializer_Exception $e){
+            $this->mcrdata = false;
+        }
         if (!$this->mcrdata){
             $this->mcrdata = $this->receiveData();
         }
 
         if(isset($this->mcrdata['company']['total_score'])){
-            $cache->save(serialize($this->mcrdata),$key,array('block_html'),3600);
+            $cache->save($serializer->serialize($this->mcrdata),$key,array('block_html'),3600);
             $this->setCorrectData(1);
         }
         return parent::_prepareLayout();
